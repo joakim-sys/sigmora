@@ -1,0 +1,8 @@
+{% extends "base.html" %}
+{% load wagtailcore_tags %}
+
+{% block content %}
+    {% with form=page.get_form %}
+        {% include "includes/sections/contact.html" with page=page form=form %}
+    {% endwith %}
+{% endblock %}

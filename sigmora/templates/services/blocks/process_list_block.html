@@ -1,0 +1,14 @@
+<div class="service-process" data-aos="fade-up">
+  <h4>{{ self.title }}</h4>
+  <div class="process-steps">
+    {% for step in self.steps %}
+    <div class="step-item">
+      <div class="step-number">{{ forloop.counter|stringformat:"02d" }}</div>
+      <div class="step-content">
+        <h5>{{ step.title }}</h5>
+        <p>{{ step.text }}</p>
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+</div>

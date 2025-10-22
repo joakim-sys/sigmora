@@ -1,0 +1,19 @@
+{% load wagtailcore_tags header_tags %}
+
+{% for child in menuitems_children %}
+{% if child.has_dropdown %}
+<li class="dropdown">
+  <a href="#"
+    ><span>Deep Dropdown</span>
+    <i class="bi bi-chevron-down toggle-dropdown"></i
+  ></a>
+  <ul>
+    <li><a href="#">Deep Dropdown 1</a></li>
+    <li><a href="#">Deep Dropdown 2</a></li>
+  </ul>
+</li>
+
+{% else %}
+<li><a href="{% pageurl child %}">{{child.title}}</a></li>
+{% endif %}
+{% endfor %}

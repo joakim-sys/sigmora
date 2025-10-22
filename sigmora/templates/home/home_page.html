@@ -1,0 +1,51 @@
+{% extends "base.html" %}
+{% load static contact_tags sections_tags %}
+
+{% block hero %}
+{% include 'includes/sections/hero.html' %}
+{% endblock hero %}
+
+
+{% block about %}
+{% include 'includes/sections/about.html' %}
+{% endblock about %}
+
+
+{% block services %}
+{% include 'includes/sections/services.html' %}
+{% endblock services %}
+
+
+{% block portfolio %}
+{% comment %} {% include 'includes/sections/portfolio.html' %} {% endcomment %}
+{% include 'includes/sections/products.html' with page=page.products_link %}
+
+{% endblock portfolio %}
+
+
+{% block why_us %}
+{% if page.featured_why_us_section %}
+    {# 3. Call the tag, passing the selected page object to it. #}
+    {% render_why_us_section page.featured_why_us_section.specific %}
+{% endif %}
+{% endblock why_us %}
+
+
+
+{% block testimonials %}
+{% comment %} {% include 'includes/sections/testimonials.html' %} {% endcomment %}
+{% endblock testimonials %}
+
+
+
+{% block team %}
+{% comment %} {% include 'includes/sections/team.html' %} {% endcomment %}
+{% endblock team %}
+
+
+{% block contact %}
+{% contact_section %}
+{% endblock contact %}
+
+{% block content %}
+{% endblock content %}

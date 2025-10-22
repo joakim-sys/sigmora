@@ -1,0 +1,29 @@
+{% load wagtailcore_tags %}
+
+<div class="project-features" data-aos="fade-up" data-aos-delay="300">
+    <h3><i class="bi bi-stars"></i> {{ value.title }}</h3>
+    <div class="row g-3">
+        <div class="col-md-6">
+            <ul class="feature-list">
+                {% for feature in value.features %}
+                    {% if forloop.counter0 < value.features|length|div:2 or value.features|length == 1 %}
+                        <li>
+                            <i class="bi bi-check2-circle"></i> {{ feature }}
+                        </li>
+                    {% endif %}
+                {% endfor %}
+            </ul>
+        </div>
+        <div class="col-md-6">
+            <ul class="feature-list">
+                {% for feature in value.features %}
+                    {% if forloop.counter0 >= value.features|length|div:2 and value.features|length > 1 %}
+                        <li>
+                            <i class="bi bi-check2-circle"></i> {{ feature }}
+                        </li>
+                    {% endif %}
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+</div>

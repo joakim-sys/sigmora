@@ -1,0 +1,16 @@
+<div class="service-features" data-aos="fade-up">
+  <h4>{{ self.title }}</h4>
+  <div class="row gy-3">
+    {% for feature in self.features %}
+    <div class="col-md-6">
+      <div class="feature-item">
+        <i class="{{ feature.icon_class }} flex-shrink-0"></i>
+        <div>
+          <h5>{{ feature.title }}</h5>
+          <p>{{ feature.text }}</p>
+        </div>
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+</div>

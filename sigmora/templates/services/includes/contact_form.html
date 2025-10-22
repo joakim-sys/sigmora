@@ -1,0 +1,31 @@
+{% load wagtailcore_tags %}
+
+{% if page.contact_form %}
+    {% with page.contact_form.specific as form_page %}
+        {% with form=form_page.get_form %}
+            <div class="inquiry-form">
+              <h4>{{ form_page.title }}</h4>
+              <form action="{% pageurl form_page %}" method="post" class="php-email-form">
+                {% csrf_token %}
+                {% for field in form %}
+                    <div class="form-group mb-3">
+                        {% if 'textarea' in field.field.widget.template_name %}
+                            <textarea name="{{ field.name }}" class="form-control" rows="5" placeholder="{{ field.label }}" {% if field.field.required %}required{% endif %}>{{ field.value|default_if_none:'' }}</textarea>
+                        {% else %}
+                            <input type="{{ field.field.widget.input_type|default:'text' }}" name="{{ field.name }}" class="form-control" id="id_{{ field.name }}" placeholder="{{ field.label }}" {% if field.field.required %}required{% endif %} value="{{ field.value|default_if_none:'' }}">
+                        {% endif %}
+                    </div>
+                {% endfor %}
+                <div class="loading">Loading</div>
+                <div class="error-message"></div>
+                <div class="sent-message">
+                  Your message has been sent. Thank you!
+                </div>
+                <button type="submit" class="btn-submit w-100">{{form_page.submit_button_txt}}</button>
+              </form>
+            </div>
+        {% endwith %}
+    {% endwith %}
+{% else %}
+    <!-- Fallback or empty space if no form is selected -->
+{% endif %}

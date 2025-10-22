@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+<!--  -->
+{% load wagtailcore_tags %} {% block body_class %}service-details-page {% endblock body_class %}
+<!--  -->
+{% block content %}
+
+<!-- Service Details Section -->
+<section id="service-details" class="service-details section">
+  <div class="container" data-aos="fade-up" data-aos-delay="100">
+    <div class="row gy-4">
+      <!-- Service Overview -->
+      <div class="col-lg-8">
+        {% include 'services/includes/service_content.html' %}
+      </div>
+      <!-- End Service Content -->
+
+      <!-- Sidebar -->
+       {%  include 'services/includes/service_sidebar.html' %}
+      <!-- End Sidebar -->
+    </div>
+  </div>
+</section>
+<!-- /Service Details Section -->
+
+{% endblock content %}

@@ -1,0 +1,122 @@
+{% extends "base.html" %}
+{% load wagtailcore_tags  wagtailimages_tags static %}
+
+{% block content %}
+
+<!-- Portfolio Section -->
+<section id="portfolio" class="portfolio section">
+  <!-- Section Title -->
+  <div class="container section-title" data-aos="fade-up">
+    <h2>{{ page.title|default:"Products" }}</h2>
+    <p>{{ page.introduction|default:"Necessitatibus eius consequatur ex aliquid fuga eum quidem sint consectetur velit" }}</p>
+  </div>
+  <!-- End Section Title -->
+
+  <div class="container" data-aos="fade-up" data-aos-delay="100">
+    <div
+      class="isotope-layout"
+      data-default-filter="*"
+      data-layout="masonry"
+      data-sort="original-order"
+    >
+      <ul class="portfolio-filters isotope-filters" data-aos="fade-up" data-aos-delay="200">
+        <li data-filter="*" class="filter-active">All Products</li>
+        {% for category in categories %}
+          <li data-filter=".filter-{{ category.slug|slugify }}">{{ category.name }}</li>
+        {% endfor %}
+      </ul>
+      <!-- End Portfolio Filters -->
+
+      <div class="row gy-4 isotope-container" data-aos="fade-up" data-aos-delay="300">
+        {% for project in products %}
+  {% with cat=project.category %}
+  <div class="col-xl-4 col-lg-6 portfolio-item isotope-item{% if cat %} filter-{{ cat.slug|slugify }}{% endif %}">
+  {% endwith %}
+          <div class="portfolio-wrapper">
+            <div class="portfolio-image">
+              {% if project.gallery_images.first %}
+                {% if project.gallery_images.first.image %}
+                {% image project.gallery_images.first.image fill-1200x800 as img %}
+                <img src="{{ img.url }}" alt="{{ project.title }}" class="img-fluid" loading="lazy" />
+                {% elif project.gallery_images.first.image_url %}
+                <img src="{{ project.gallery_images.first.image_url }}" alt="{{ project.title }}" class="img-fluid" loading="lazy" />
+                {% endif %}
+              {% else %}
+                <img src="{% static 'assets/img/portfolio/placeholder.webp' %}" alt="{{ project.title }}" class="img-fluid" loading="lazy" />
+              {% endif %}
+              <div class="portfolio-hover">
+                <div class="portfolio-actions">
+                  {% if project.gallery_images.first %}
+                    {% if project.gallery_images.first.image %}
+                    {% image project.gallery_images.first.image original as preview %}
+                    <a href="{{ preview.url }}" class="glightbox action-btn preview-btn" title="Preview {{ project.title }}">
+                      <i class="bi bi-eye"></i>
+                    </a>
+                    {% elif project.gallery_images.first.image_url %}
+                    <a href="{{ project.gallery_images.first.image_url }}" class="glightbox action-btn preview-btn" title="Preview {{ project.title }}">
+                      <i class="bi bi-eye"></i>
+                    </a>
+                    {% endif %}
+                  {% endif %}
+                  <a href="{{ project.url }}" class="action-btn details-btn" title="View Details">
+                    <i class="bi bi-arrow-up-right"></i>
+                  </a>
+                </div>
+              </div>
+            </div>
+            <div class="portfolio-content">
+              <div class="portfolio-meta">
+                {% with cat=project.category %}
+                  {% if cat %}<span class="project-type">{{ cat.name }}</span>{% endif %}
+                {% endwith %}
+                <div class="project-rating">
+                  <i class="bi bi-star-fill"></i>
+                  <span>&nbsp;</span>
+                </div>
+              </div>
+              <h3>{{ project.title }}</h3>
+              <p>{{ project.lead_paragraph|striptags|truncatechars:120 }}</p>
+              <div class="portfolio-tech">
+                {% for tag in project.tech_stack.all %}
+                  <span class="tech-badge">{{ tag.name }}</span>
+                {% endfor %}
+              </div>
+            </div>
+          </div>
+        </div>
+        {% endfor %}
+      </div>
+      <!-- End Portfolio Items Container -->
+    </div>
+
+<div
+  class="portfolio-cta text-center"
+  data-aos="fade-up"
+  data-aos-delay="400"
+>
+  <h4>{{ page.product_cta_title }}</h4>
+  <p>{{ page.product_cta_subtitle }}</p>
+  <div class="cta-buttons">
+    
+    {# Check if the primary link has been set in the admin #}
+    {% if page.product_cta_primary_link %}
+      <a href="{% pageurl page.product_cta_primary_link %}" class="btn btn-primary">{{ page.product_cta_primary_text }}</a>
+    {% endif %}
+
+    {# Check if the secondary link has been set in the admin #}
+    {% if page.product_cta_secondary_link %}
+      <a href="{% pageurl page.product_cta_secondary_link %}" class="btn btn-outline">{{ page.product_cta_secondary_text }}</a>
+    {% endif %}
+    
+  </div>
+</div>
+
+  </div>
+</section>
+<!-- /Portfolio Section -->
+
+
+
+
+
+{% endblock %}

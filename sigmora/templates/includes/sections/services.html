@@ -1,0 +1,57 @@
+{% load wagtailcore_tags wagtailimages_tags %}
+
+<!-- Services Section -->
+{% if page.services_title %}
+<section id="services" class="services section">
+
+  <!-- Section Title -->
+  <div class="container section-title" data-aos="fade-up">
+    <h2>{{ page.services_title }}</h2>
+    <p>{{ page.services_subtitle }}</p>
+  </div><!-- End Section Title -->
+
+  <div class="container" data-aos="fade-up" data-aos-delay="100">
+
+    <div class="row gy-4">
+      
+      {# Loop through the service_cards using the related_name we defined #}
+      {% for card in page.service_cards.all %}
+      <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="{{ forloop.counter|add:1 }}00">
+        <div class="service-card">
+          <div class="service-icon">
+            <i class="{{ card.icon_class }}"></i>
+          </div>
+          <h4><a href="{% if card.link_page %}{% pageurl card.link_page %}{% endif %}">{{ card.title }}</a></h4>
+          <p>{{ card.description }}</p>
+          
+          {# Conditionally display the badge #}
+          {% if card.show_badge %}
+            <div class="service-badge">{{ card.badge_text }}</div>
+          {% endif %}
+          
+          <a href="{% if card.link_page %}{% pageurl card.link_page %}{% endif %}" class="service-link">
+            <span>More</span>
+            <i class="bi bi-arrow-right"></i>
+          </a>
+        </div>
+      </div>
+      {% endfor %}
+
+    </div>
+
+    <div class="row mt-5">
+      <div class="col-12 text-center" data-aos="fade-up" data-aos-delay="400">
+        <div class="services-cta">
+          <h3>{{ page.services_cta_title }}</h3>
+          <p>{{ page.services_cta_subtitle }}</p>
+          {% if page.services_cta_link %}
+            <a href="{% pageurl page.services_cta_link %}" class="btn btn-primary">{{ page.services_cta_button_text }}</a>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+</section><!-- /Services Section -->
+{% endif %}

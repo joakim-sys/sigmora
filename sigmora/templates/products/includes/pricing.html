@@ -1,0 +1,34 @@
+{% load wagtailcore_tags %}
+<section id="pricing" class="pricing section">
+  <div class="container section-title" data-aos="fade-up">
+    <h2>{{ page.pricing_title }}</h2>
+    <p>{{ page.pricing_subtitle }}</p>
+  </div>
+  <div class="container">
+    <div class="row g-4 g-lg-0">
+      {% for tier in page.pricing_tiers.all %}
+      <div class="col-lg-4 {% if tier.is_featured %}featured{% endif %}" data-aos="zoom-in" data-aos-delay="100">
+        <div class="pricing-item">
+          <h3>{{ tier.name }}</h3>
+          <h4><sup>$</sup>{{ tier.price|floatformat:0 }}<span> {{ tier.price_suffix }}</span></h4>
+          <ul>
+            {% for feature in tier.features.all %}
+            <li class="{% if not feature.is_included %}na{% endif %}">
+              <i class="bi {% if feature.is_included %}bi-check{% else %}bi-x{% endif %}"></i> 
+              <span>{{ feature.text }}</span>
+            </li>
+            {% endfor %}
+          </ul>
+
+<div class="text-center">
+  <a href="{% url 'products:create_order' product_id=page.id tier_id=tier.id %}" class="buy-btn">Send Quote</a>
+  <!-- <a href="{{page.nowpayment_url}}" class="buy-btn">Buy Now</a> -->
+
+</div>          
+
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>

@@ -1,0 +1,10 @@
+{% load wagtailcore_tags %}
+
+<div class="service-features" data-aos="fade-up" data-aos-delay="300">
+  <h4>{{self.heading}}</h4>
+  <div class="row gy-3">
+    {% for block in self.features.block.value %}
+    {% include_block block %}
+    {% endfor %}
+</div>
+</div>

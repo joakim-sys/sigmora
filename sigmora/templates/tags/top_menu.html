@@ -1,0 +1,29 @@
+{% load navigation_tags wagtailcore_tags %}
+{% get_site_root as site_root %}
+
+{% for menuitem in menuitems %}
+{% if menuitem.show_dropdown %}
+<li class="dropdown">
+	<a href="{% pageurl menuitem %}"
+	><span>{{menuitem.title}}</span>
+	<i class="bi bi-chevron-down toggle-dropdown"></i
+	></a>
+	<ul>
+	{% top_menu_children parent=menuitem %}
+
+	</ul>
+</li>
+
+{% else %}
+
+{% if request.path == '/' %}
+<a href="#{{menuitem.slug}}">{{ menuitem.title }}</a>
+{% else %}
+<li>
+	<a href="{% pageurl menuitem %}" class="{% if menuitem.active  %}active{% endif %}">
+		{{menuitem.title}}
+	</a>
+</li>
+{% endif %}
+{% endif %}
+{% endfor %}

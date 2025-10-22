@@ -1,0 +1,14 @@
+{# Spacer block: outputs a spacer div with a size class #}
+{% if value.size == 'xs' %}
+  <div class="spacer spacer-xs" style="height:8px;">&nbsp;</div>
+{% elif value.size == 'sm' %}
+  <div class="spacer spacer-sm" style="height:16px;">&nbsp;</div>
+{% elif value.size == 'md' %}
+  <div class="spacer spacer-md" style="height:32px;">&nbsp;</div>
+{% elif value.size == 'lg' %}
+  <div class="spacer spacer-lg" style="height:48px;">&nbsp;</div>
+{% elif value.size == 'xl' %}
+  <div class="spacer spacer-xl" style="height:64px;">&nbsp;</div>
+{% else %}
+  <div class="spacer spacer-md" style="height:32px;">&nbsp;</div>
+{% endif %}

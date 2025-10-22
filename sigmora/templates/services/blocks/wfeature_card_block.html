@@ -1,0 +1,17 @@
+<div class="feature-card">
+  <div class="icon-wrapper">
+    <i class="{{ self.icon_class }}"></i>
+  </div>
+  <h4>{{ self.title }}</h4>
+  <p>{{ self.text }}</p>
+  <div class="feature-stats">
+    <span
+      class="stat-number"
+      data-purecounter-start="0"
+      data-purecounter-end="{{ self.stat_number }}"
+      data-purecounter-duration="2"
+      >{{ self.stat_number }}</span
+    >
+    <span class="stat-label">{{ self.stat_label }}</span>
+  </div>
+</div>

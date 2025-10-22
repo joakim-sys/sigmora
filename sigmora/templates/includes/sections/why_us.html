@@ -1,0 +1,65 @@
+{% load static wagtailcore_tags wagtailimages_tags %}
+
+<section id="why-us" class="why-us section">
+  <!-- Section Title -->
+  <div class="container section-title" data-aos="fade-up">
+    <h2>{{ page.section_title }}</h2>
+    <p>{{ page.section_subtitle }}</p>
+  </div>
+  <!-- End Section Title -->
+
+  <div class="container" data-aos="fade-up" data-aos-delay="100">
+    <div class="row g-4">
+      {% for block in page.feature_cards %}
+        <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="{{ forloop.counter|add:1 }}00">
+          {% include_block block %}
+        </div>
+      {% endfor %}
+    </div>
+
+    <div class="row mt-5">
+      <div class="col-lg-6" data-aos="fade-right" data-aos-delay="200">
+        <div class="feature-showcase">
+          {% if page.showcase_image %}
+          {% image page.showcase_image fill-600x600 as img %}
+          <img
+            src="{{ img.url }}"
+            alt="{{ page.showcase_image.title }}"
+            class="img-fluid"
+          />
+          {% else %}
+          <img
+            src="{% static "assets/img/about/why.jpg" %}"
+            alt="{{ page.showcase_image.title }}"
+            class="img-fluid"
+          />
+          {% endif %}
+        </div>
+      </div>
+
+      <div class="col-lg-6" data-aos="fade-left" data-aos-delay="300">
+        <div class="feature-content">
+          <h3>{{ page.showcase_title }}</h3>
+          <p class="lead">
+            {{ page.showcase_lead_text }}
+          </p>
+
+          <div class="feature-list">
+            {% for block in page.feature_list %}
+              {% include_block block %}
+            {% endfor %}
+          </div>
+
+          <div class="cta-wrapper">
+            {% if page.primary_cta_link %}
+              <a href="{% pageurl page.primary_cta_link %}" class="btn btn-primary">{{ page.primary_cta_text }}</a>
+            {% endif %}
+            {% if page.secondary_cta_link %}
+              <a href="{% pageurl page.secondary_cta_link %}" class="btn btn-outline">{{ page.secondary_cta_text }}</a>
+            {% endif %}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

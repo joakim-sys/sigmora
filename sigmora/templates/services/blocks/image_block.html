@@ -1,0 +1,5 @@
+{% load wagtailimages_tags %}
+<div class="service-image my-4" data-aos="fade-up">
+  {% image value fill-900x500 as img %}
+  <img src="{{ img.url }}" alt="{{ img.alt }}" class="img-fluid rounded" />
+</div>

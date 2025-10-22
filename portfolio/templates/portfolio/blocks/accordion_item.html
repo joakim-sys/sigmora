@@ -1,0 +1,12 @@
+<div class="accordion-item" data-aos="fade-up">
+  <h2 class="accordion-header">
+    <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#portfolio-details-collapse-{{ id }}" aria-expanded="true" aria-controls="collapse{{ id }}">
+      {% if value.icon %}<i class="{{ value.icon }} me-2"></i>{% endif %} {{ value.title }}
+    </button>
+  </h2>
+  <div id="portfolio-details-collapse-{{ id }}" class="accordion-collapse collapse show" data-bs-parent="#portfolio-details-projectAccordion">
+    <div class="accordion-body">
+      {{ value.body|richtext }}
+    </div>
+  </div>
+</div>

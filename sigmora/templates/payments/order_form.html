@@ -1,0 +1,25 @@
+{% extends "base.html" %} {% block content %}
+<section class="section">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-6">
+        <h2>Confirm Your Order</h2>
+        <div class="card">
+          <div class="card-body">
+            <h5 class="card-title">{{ product.title }}</h5>
+            <h6 class="card-subtitle mb-2 text-muted">{{ tier.name }} Tier</h6>
+            <p class="card-text">Price: ${{ tier.price|floatformat:2 }}</p>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-6">
+        <h3>Enter Your Details</h3>
+        <form method="post">
+          {% csrf_token %} {{ form.as_p }}
+          <button type="submit" class="btn btn-primary">Submit Order</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
+{% endblock %}

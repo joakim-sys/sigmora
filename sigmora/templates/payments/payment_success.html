@@ -1,0 +1,53 @@
+{% extends "base.html" %}
+{% load static wagtailcore_tags %}
+
+{% block content %}
+
+<!-- Payment Success Section -->
+<section class="payment-status section">
+  <div class="container" data-aos="fade-up">
+    <div class="row justify-content-center">
+      <div class="col-lg-7 col-md-9 text-center">
+        
+        <div class="card shadow-lg border-0" style="padding: 40px;">
+          <div class="card-body">
+            
+            <!-- Success Icon -->
+            <div class="mb-4">
+              <i class="bi bi-check-circle-fill text-success" style="font-size: 5rem;"></i>
+            </div>
+            
+            <!-- Heading -->
+            <h1 class="h2 fw-bold mb-3">Payment Successful!</h1>
+            
+            <!-- Message -->
+            <p class="lead text-muted">
+              Thank you for your order. We have received your payment and your project is now in our queue.
+            </p>
+            
+            <hr class="my-4">
+            
+            <!-- Next Steps -->
+            <h5 class="fw-bold">What Happens Next?</h5>
+            <p class="text-start">
+              <strong>1. Confirmation Email:</strong> You will receive an email shortly with your order confirmation and official receipt.
+              <br>
+              <strong>2. Development Begins:</strong> Our team will review your requirements and begin the development process.
+              <br>
+              <strong>3. Delivery:</strong> We will deliver the final product to your email address within the specified delivery time for your chosen tier.
+            </p>
+            
+            <!-- Call to Action -->
+            {% comment %} <div class="mt-5">
+              <a href="{% pageurl request.site.root_page %}" class="btn btn-primary btn-lg">Return to Homepage</a>
+            </div> {% endcomment %}
+            
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</section><!-- /Payment Success Section -->
+
+{% endblock content %}

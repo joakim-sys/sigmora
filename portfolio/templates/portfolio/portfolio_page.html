@@ -1,0 +1,142 @@
+{% extends "base.html" %} 
+{% load wagtailcore_tags wagtailimages_tags static %} 
+
+{% block body_class %}portfolio-details-page {% endblock body_class %}
+
+{% block content %}
+<!-- Portfolio Details Section -->
+<section id="portfolio-details" class="portfolio-details section">
+  <div class="container" data-aos="fade-up" data-aos-delay="100">
+    <div class="row gy-4">
+      <div class="col-lg-6" data-aos="fade-right">
+        <div class="portfolio-details-media">
+          <div class="main-image">
+            <div
+              class="portfolio-details-slider swiper init-swiper"
+              data-aos="zoom-in"
+            >
+              <script type="application/json" class="swiper-config">
+                {
+                  "loop": true,
+                  "speed": 1000,
+                  "autoplay": {
+                    "delay": 6000
+                  },
+                  "effect": "creative",
+                  "creativeEffect": {
+                    "prev": {
+                      "shadow": true,
+                      "translate": [0, 0, -400]
+                    },
+                    "next": {
+                      "translate": ["100%", 0, 0]
+                    }
+                  },
+                  "slidesPerView": 1,
+                  "navigation": {
+                    "nextEl": ".swiper-button-next",
+                    "prevEl": ".swiper-button-prev"
+                  }
+                }
+              </script>
+              <div class="swiper-wrapper">
+                {% for item in page.gallery_images.all %}
+                    <div class="swiper-slide">
+                        {% image item.image fill-1200x800 as img %}
+                        <img
+                            src="{{ img.url }}"
+                            alt="{{ item.caption|default:page.title }}"
+                            class="img-fluid"
+                        />
+                    </div>
+                {% endfor %}
+              </div>
+              <div class="swiper-button-prev"></div>
+              <div class="swiper-button-next"></div>
+            </div>
+          </div>
+
+          <div class="thumbnail-grid" data-aos="fade-up" data-aos-delay="200">
+            <div class="row g-2 mt-3">
+                {% for item in page.gallery_images.all %}
+                    <div class="col-3">
+                        {% image item.image fill-165x165 as thumb %}
+                        <img
+                        src="{{ thumb.url }}"
+                        alt="{{ item.caption|default:page.title }}"
+                        class="img-fluid glightbox"
+                        />
+                    </div>
+                {% endfor %}
+            </div>
+          </div>
+
+          <div
+            class="tech-stack-badges"
+            data-aos="fade-up"
+            data-aos-delay="300"
+          >
+            {% for tag in page.tags.all %}
+                <span>{{ tag.name }}</span>
+            {% endfor %}
+          </div>
+        </div>
+      </div>
+
+      <div class="col-lg-6" data-aos="fade-left">
+        <div class="portfolio-details-content">
+          <div class="project-meta">
+            <div class="badge-wrapper">
+                {% for category in page.categories.all %}
+                    <span class="project-badge">{{ category.name }}</span>
+                {% endfor %}
+            </div>
+            <div class="date-client">
+              <div class="meta-item">
+                <i class="bi bi-calendar-check"></i>
+                <span>{{ page.project_date|date:"F Y" }}</span>
+              </div>
+              <div class="meta-item">
+                <i class="bi bi-buildings"></i>
+                <span>{{ page.client }}</span>
+              </div>
+            </div>
+          </div>
+
+          <h2 class="project-title">{{ page.title }}</h2>
+
+          {% if page.project_website %}
+            <div class="project-website">
+                <i class="bi bi-link-45deg"></i>
+                <a href="{{ page.project_website }}" target="_blank">{{ page.project_website }}</a>
+            </div>
+          {% endif %}
+
+          <div class="project-overview">
+            {{ page.lead_paragraph|richtext }}
+
+      <div class="project-overview-body">
+        {% for block in page.body %}
+          {% include_block block %}
+        {% endfor %}
+      </div>
+      </div>
+
+          <div class="cta-buttons" data-aos="fade-up" data-aos-delay="400">
+            {% if page.live_project_url %}
+                <a href="{{ page.live_project_url }}" class="btn-view-project">View Live Project</a>
+            {% endif %}
+            {% if page.next_project_page %}
+                <a href="{{ page.next_project_page.url }}" class="btn-next-project"
+                >Next Project <i class="bi bi-arrow-right"></i
+                ></a>
+            {% endif %}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- /Portfolio Details Section -->
+
+{% endblock content %}

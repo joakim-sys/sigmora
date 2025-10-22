@@ -1,0 +1,46 @@
+# Python
+*.pyc
+*.pyo
+*.pyd
+__pycache__/
+*.py[cod]
+
+# Django
+*.log
+*.sqlite3
+db.sqlite3
+sigmoradb
+media/
+# collect_static/
+
+# Environment variables
+.env
+*.env
+
+# IDE/editor settings
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Virtual environment
+venv/
+.env/
+venv.bak/
+.env.bak/
+
+# OS-specific files
+.DS_Store
+Thumbs.db
+
+# Other
+*.pot
+*.mo
+*.coverage
+*.cover
+nosetests.xml
+coverage.xml
+*.dmg
+*.iso
+*.tar.gz
+*.zip

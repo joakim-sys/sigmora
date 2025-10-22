@@ -1,0 +1,44 @@
+{% load wagtailcore_tags wagtailimages_tags %}
+
+<footer id="footer" class="footer position-relative dark-background">
+  <div class="container footer-top">
+    <div class="row gy-4">
+      <div class="col-lg-4 col-md-6 footer-about">
+        <a href="/" class="logo d-flex align-items-center">
+          <span class="sitename">{{ settings.site_name }}</span>
+        </a>
+        <div class="footer-contact pt-3">
+          {{ settings.about_text|richtext }}
+        </div>
+        <div class="social-links d-flex mt-4">
+          {% for link in settings.social_links.all %}
+            <a href="{{ link.url }}"><i class="{{ link.icon_class }}"></i></a>
+          {% endfor %}
+        </div>
+      </div>
+
+      {# Loop through the StreamField for link columns #}
+      {% for block in settings.footer_links %}
+        <div class="col-lg-2 col-md-3 footer-links">
+          <h4>{{ block.value.title }}</h4>
+          <ul>
+            {% for link in block.value.links %}
+              <li><a href="{% pageurl link.link_page %}">{{ link.link_text }}</a></li>
+            {% endfor %}
+          </ul>
+        </div>
+      {% endfor %}
+
+    </div>
+  </div>
+
+  <div class="container copyright text-center mt-4">
+    <p>
+      © <span>{{ settings.copyright_text }}</span> <strong class="px-1 sitename">{{ settings.site_name }}</strong>
+      <span>All Rights Reserved</span>
+    </p>
+    <div class="credits">
+      {{ settings.credits_text|richtext }}
+    </div>
+  </div>
+</footer>

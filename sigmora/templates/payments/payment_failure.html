@@ -1,0 +1,56 @@
+{% extends "base.html" %}
+{% load static wagtailcore_tags %}
+
+{% block content %}
+
+<!-- Payment Failure Section -->
+<section class="payment-status section">
+  <div class="container" data-aos="fade-up">
+    <div class="row justify-content-center">
+      <div class="col-lg-7 col-md-9 text-center">
+
+        <div class="card shadow-lg border-0" style="padding: 40px;">
+          <div class="card-body">
+            
+            <!-- Failure Icon -->
+            <div class="mb-4">
+              <i class="bi bi-x-circle-fill text-danger" style="font-size: 5rem;"></i>
+            </div>
+            
+            <!-- Heading -->
+            <h1 class="h2 fw-bold mb-3">Payment Unsuccessful</h1>
+            
+            <!-- Message -->
+            <p class="lead text-muted">
+              Unfortunately, there was an issue processing your payment, or the transaction was cancelled.
+            </p>
+            <p><strong>Please rest assured, you have not been charged.</strong></p>
+            
+            <hr class="my-4">
+            
+            <!-- Next Steps -->
+            <h5 class="fw-bold">What You Can Do</h5>
+            <p>
+              You can try the purchase again. If the problem persists, please don't hesitate to contact our support team for assistance.
+            </p>
+            
+            <!-- Call to Action Buttons -->
+            <div class="mt-5 d-grid gap-2 d-sm-flex justify-content-sm-center">
+              <a href="javascript:history.back()" class="btn btn-primary btn-lg">Try Again</a>
+              {# Make sure you have a ContactPage with the slug 'contact' for this to work #}
+              {% comment %} {% with contact_page=request.site.root_page.get_descendants.type(ContactPage).live.first %}
+                {% if contact_page %}
+                  <a href="{% pageurl contact_page %}" class="btn btn-outline-secondary btn-lg">Contact Support</a>
+                {% endif %}
+              {% endwith %} {% endcomment %}
+            </div>
+            
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</section><!-- /Payment Failure Section -->
+
+{% endblock content %}

@@ -1,0 +1,97 @@
+{% load wagtailcore_tags %}
+
+<!-- Contact Section -->
+<section id="contact" class="contact section">
+  <!-- Section Title -->
+  <div class="container section-title" data-aos="fade-up">
+    <h2>{{ page.contact_section_title }}</h2>
+    <p>{{ page.contact_section_subtitle }}</p>
+  </div>
+  <!-- End Section Title -->
+
+  <div class="container" data-aos="fade-up" data-aos-delay="100">
+    <div class="row align-items-center">
+      <div class="col-lg-5" data-aos="fade-right" data-aos-delay="200">
+        <div class="contact-form-card">
+          <div class="form-header">
+            <div class="header-icon">
+              <i class="{{ page.form_header_icon }}"></i>
+            </div>
+            <h3>{{ page.form_header_title }}</h3>
+            <p>{{ page.form_header_paragraph }}</p>
+          </div>
+
+          <form action="{% if page %}{% pageurl page %}{% endif %}" method="post" class="php-email-form">
+            {% csrf_token %}
+            {% for field in form %}
+                <div class="form-group mb-3">
+                    {% if 'textarea' in field.field.widget.template_name %}
+                        <textarea name="{{ field.name }}" class="form-control" rows="5" placeholder="{{ field.label }}" {% if field.field.required %}required{% endif %}>{{ field.value|default_if_none:'' }}</textarea>
+                    {% else %}
+                        <input type="{{ field.field.widget.input_type|default:'text' }}" name="{{ field.name }}" class="form-control" id="id_{{ field.name }}" placeholder="{{ field.label }}" {% if field.field.required %}required{% endif %} value="{{ field.value|default_if_none:'' }}">
+                    {% endif %}
+                </div>
+            {% endfor %}
+            <div class="my-3">
+              <div class="loading">Loading</div>
+              <div class="error-message"></div>
+              <div class="sent-message">
+                Your message has been sent. Thank you!
+              </div>
+            </div>
+
+            <button type="submit" class="submit-btn">
+              <span>{{ page.submit_button_txt }}</span>
+              <i class="bi bi-send-fill"></i>
+            </button>
+          </form>
+        </div>
+      </div>
+
+      <div class="col-lg-7" data-aos="fade-left" data-aos-delay="200">
+        <div class="contact-info-area">
+          <div class="info-header">
+            <h3>{{ page.info_header_title }}</h3>
+            <p>{{ page.info_header_text }}</p>
+          </div>
+
+          <div class="contact-methods">
+            {% for method in page.contact_methods.all %}
+              <div class="method-card" data-aos="zoom-in" data-aos-delay="{{ forloop.counter|add:1 }}50">
+                <div class="card-icon">
+                  <i class="{{ method.icon_class }}"></i>
+                </div>
+                <div class="card-content">
+                  <h5>{{ method.title }}</h5>
+                  <p>{{ method.details }}</p>
+                  <span class="response-time">{{ method.response_time }}</span>
+                </div>
+              </div>
+            {% endfor %}
+          </div>
+
+          <div class="additional-info" data-aos="fade-up" data-aos-delay="400">
+            <div class="info-stats">
+              {% for stat in page.contact_stats.all %}
+                <div class="stat-item">
+                  <div class="stat-number">{{ stat.number }}</div>
+                  <div class="stat-label">{{ stat.label }}</div>
+                </div>
+              {% endfor %}
+            </div>
+
+            <div class="social-connect">
+              <h6>{{ page.social_connect_title }}</h6>
+              <div class="social-links">
+                {% for link in page.social_links.all %}
+                  <a href="{{ link.url }}" class="social-link"><i class="{{ link.icon_class }}"></i></a>
+                {% endfor %}
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- /Contact Section -->

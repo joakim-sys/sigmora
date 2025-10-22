@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+
+{% block content %}
+  {# Render a minimal page that includes the header using the snippet instance as `snippet` #}
+  {% comment %} The snippet preview context exposes object as `object` or `snippet` depending on Wagtail version. We'll try both. {% endcomment %}
+
+  {% with header=object|default:snippet %}
+    <header id="preview-header" class="header d-flex align-items-center sticky-top">
+      <div class="header-container container-fluid container-xl position-relative d-flex align-items-center justify-content-between">
+        <a href="/" class="logo d-flex align-items-center me-auto me-xl-0">
+          {% if header and header.site_title %}
+            <h1 class="sitename">{{ header.site_title }}</h1>
+          {% else %}
+            <h1 class="sitename">Sigmora</h1>
+          {% endif %}
+        </a>
+
+        <nav id="navmenu" class="navmenu">
+          <ul>
+            {# Keep menu empty in preview or show site root menu if available #}
+          </ul>
+          <i class="mobile-nav-toggle d-xl-none bi bi-list"></i>
+        </nav>
+
+        <a class="btn-getstarted" href="{{ header.cta_link|default:'#about' }}">{{ header.cta_text|default:'Get Started' }}</a>
+      </div>
+    </header>
+  {% endwith %}
+
+{% endblock %}

@@ -1,0 +1,10 @@
+{% load wagtailimages_tags %}
+
+{% image self.image original as img %}
+<div class="service-image" data-aos="fade-up" data-aos-delay="200">
+  <img
+    src="{{img.url}}"
+    alt="{{self.caption}}"
+    class="img-fluid rounded"
+  />
+</div>

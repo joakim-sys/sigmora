@@ -1,0 +1,6 @@
+<blockquote class="blockquote">
+    <p>{{ self.text }}</p>
+    {% if self.attribute_name %}
+        <footer class="blockquote-footer">{{ self.attribute_name }}</footer>
+    {% endif %}
+</blockquote>

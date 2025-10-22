@@ -1,0 +1,77 @@
+{% load static wagtailcore_tags wagtailimages_tags %}
+
+    <!-- About Section -->
+    {# Only render the section if the title has been filled in #}
+    {% if page.about_title %}
+    <section id="about" class="about section">
+
+      <div class="container" data-aos="fade-up" data-aos-delay="100">
+
+        <div class="row gy-5 align-items-center">
+
+          <div class="col-lg-5" data-aos="fade-right" data-aos-delay="200">
+            <div class="content">
+              <h6 class="subtitle">{{ page.about_subtitle }}</h6>
+              <h2>{{ page.about_title }}</h2>
+              
+              {{ page.about_text|richtext }}
+
+              {% if page.about_features.all %}
+                <ul class="features-list">
+                  {% for feature in page.about_features.all %}
+                    <li><i class="bi bi-check-circle-fill"></i><span>{{ feature.text }}</span></li>
+                  {% endfor %}
+                </ul>
+              {% endif %}
+
+              {% if page.about_cta_link %}
+                <a href="{% pageurl page.about_cta_link %}" class="btn btn-primary">{{ page.about_cta_text }}</a>
+              {% endif %}
+            </div>
+          </div>
+
+          <div class="col-lg-7" data-aos="fade-left" data-aos-delay="300">
+            <div class="image-composition">
+              {% if page.about_main_image %}
+                <div class="image-main">
+                  {% image page.about_main_image fill-600x750 as main_img %}
+                  <img src="{{ main_img.url }}" alt="{{ main_img.alt }}" class="img-fluid" loading="lazy">
+                </div>
+                {% else %}
+                <div class="image-main">
+                  {% image page.about_main_image fill-600x750 as main_img %}
+                  <img src="{% static 'assets/img/about/about-01.jpg' %}" class="img-fluid" loading="lazy">
+                </div>
+              {% endif %}
+
+              {% if page.about_secondary_image %}
+                <div class="image-secondary">
+                  {% image page.about_secondary_image fill-400x400 as sec_img %}
+                  <img src="{{ sec_img.url }}" alt="{{ sec_img.alt }}" class="img-fluid" loading="lazy">
+                </div>
+              {% else %}
+                <div class="image-secondary">
+                  {% image page.about_secondary_image fill-400x400 as sec_img %}
+                  <img src="{% static 'assets/img/about/about-02.jpg' %}" class="img-fluid" loading="lazy">
+                </div>
+              {% endif %}
+              
+              {% if page.about_stats.all %}
+                <div class="stats-card">
+                  {% for stat in page.about_stats.all %}
+                    <div class="stats-item">
+                      <h3>{{ stat.number }}</h3>
+                      <p>{{ stat.label }}</p>
+                    </div>
+                  {% endfor %}
+                </div>
+              {% endif %}
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+
+    </section><!-- /About Section -->
+    {% endif %}

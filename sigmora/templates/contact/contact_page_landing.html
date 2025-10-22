@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+{% load wagtailcore_tags static %}
+
+{% block content %}
+<section id="contact-landing" class="contact section">
+    <div class="container" data-aos="fade-up" data-aos-delay="100">
+        <div class="row justify-content-center">
+            <div class="col-lg-8 text-center">
+                <div class="contact-form-card p-5">
+                    <div class="form-header mb-4">
+                        <div class="header-icon" style="font-size: 3rem; color: var(--accent-color);">
+                            <i class="bi bi-check-circle"></i>
+                        </div>
+                        <h2 class="mt-3">Message Sent!</h2>
+                    </div>
+
+                    <div class="thank-you-message lead">
+                        {% if page.thank_you_text %}
+                            {{ page.thank_you_text|richtext }}
+                        {% else %}
+                            <p>Thank you for reaching out. Your message has been received, and we will get back to you as soon as possible.</p>
+                        {% endif %}
+                    </div>
+
+                    <hr class="my-4">
+
+                    <p>You can now safely close this page or return to our homepage.</p>
+                    <a href="/" class="btn btn-primary submit-btn">
+                        <i class="bi bi-house-door-fill"></i>
+                        <span>Return to Homepage</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

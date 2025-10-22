@@ -1,0 +1,102 @@
+{% extends "base.html" %} 
+{% load wagtailcore_tags %} 
+
+{% block content %}
+<section class="order-form-section section">
+  <div class="container" style="padding-top: 12px; padding-bottom: 60px">
+    <div class="row justify-content-center">
+      <div class="col-lg-8">
+
+        <div class="text-center mb-5" data-aos="fade-up">
+          <h2 class="fw-bold">Project Brief & Order</h2>
+          <p class="lead text">
+            You are purchasing the <strong>{{ tier.name }}</strong> tier for <strong>{{ product.title }}</strong>.
+          </p>
+        </div>
+
+        <div class="card shadow-lg border-0" data-aos="fade-up" data-aos-delay="100">
+          <div class="card-body p-4 p-md-5">
+            
+            <form method="post" novalidate>
+              {% csrf_token %} 
+              
+              <!-- Personal Details with Icons -->
+              <div class="mb-4">
+                <label for="{{ form.full_name.id_for_label }}" class="form-label fw-bold">Full Name</label>
+                <div class="input-group">
+                  <span class="input-group-text"><i class="bi bi-person-fill"></i></span>
+                  {{ form.full_name }}
+                </div>
+                {% for error in form.full_name.errors %}<div class="invalid-feedback d-block">{{ error }}</div>{% endfor %}
+              </div>
+              
+              <div class="mb-4">
+                <label for="{{ form.email.id_for_label }}" class="form-label fw-bold">Email Address</label>
+                <div class="input-group">
+                  <span class="input-group-text"><i class="bi bi-envelope-fill"></i></span>
+                  {{ form.email }}
+                </div>
+                {% for error in form.email.errors %}<div class="invalid-feedback d-block">{{ error }}</div>{% endfor %}
+              </div>
+
+              <hr class="my-4 my-md-5">
+
+              <!-- Project Details with Icons -->
+              <div class="mb-4">
+                <label for="{{ form.project_name.id_for_label }}" class="form-label fw-bold">{{ form.project_name.label }}</label>
+                <div class="input-group">
+                  <span class="input-group-text"><i class="bi bi-lightbulb-fill"></i></span>
+                  {{ form.project_name }}
+                </div>
+                {% for error in form.project_name.errors %}<div class="invalid-feedback d-block">{{ error }}</div>{% endfor %}
+              </div>
+              
+              <div class="mb-4">
+                <label for="{{ form.platform_choice.id_for_label }}" class="form-label fw-bold">{{ form.platform_choice.label }}</label>
+                <div class="input-group">
+                   <span class="input-group-text"><i class="bi bi-display-fill"></i></span>
+                   {{ form.platform_choice }}
+                </div>
+                {% for error in form.platform_choice.errors %}<div class="invalid-feedback d-block">{{ error }}</div>{% endfor %}
+              </div>
+
+              <div class="mb-4">
+                <label for="{{ form.core_functionality.id_for_label }}" class="form-label fw-bold">{{ form.core_functionality.label }}</label>
+                {{ form.core_functionality }}
+                {% if form.core_functionality.help_text %}<div class="form-text text-muted small mt-1">{{ form.core_functionality.help_text }}</div>{% endif %}
+                {% for error in form.core_functionality.errors %}<div class="invalid-feedback d-block">{{ error }}</div>{% endfor %}
+              </div>
+
+              <div class="mb-4">
+                <label for="{{ form.brand_details.id_for_label }}" class="form-label fw-bold">{{ form.brand_details.label }}</label>
+                {{ form.brand_details }}
+                {% if form.brand_details.help_text %}<div class="form-text text-muted small mt-1">{{ form.brand_details.help_text }}</div>{% endif %}
+                {% for error in form.brand_details.errors %}<div class="invalid-feedback d-block">{{ error }}</div>{% endfor %}
+              </div>
+              
+              <!-- Submit Button and Payment Info -->
+              <div class="d-grid gap-2 mt-5">
+                <button type="submit" class="btn btn-primary btn-lg fw-bold">
+                  Review & Pay <sup>(${{ tier.price|floatformat:2 }})</sup>
+                </button>
+              </div>
+              
+              <div class="text-center mt-3">
+                <small class="text-muted">
+                  <i class="bi bi-lock-fill"></i> Securely processed by <strong>NOWPayments</strong>.
+                  <br>
+                  We accept a wide range of cryptocurrencies.
+                </small>
+              </div>
+            </form>
+
+                <div class="text-center mt-4 text-muted small">
+                  Need help? <a href="mailto:{{ payment_settings.support_email }}">Contact Support</a>
+                </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+{% endblock %}

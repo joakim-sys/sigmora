@@ -1,0 +1,58 @@
+{% load static %}
+{% load wagtailcore_tags wagtailimages_tags header_tags %}
+
+
+<!-- Hero Section -->
+<section id="hero" class="hero section">
+
+  <div class="container">
+    <div class="row align-items-center">
+      <div class="col-lg-6" data-aos="fade-right" data-aos-delay="100">
+        <div class="hero-content">
+          <h1>{{ page.hero_heading }}</h1>
+          <p>{{ page.hero_subheading }}</p>
+
+          <div class="hero-buttons">
+            {% if page.hero_primary_cta_link %}
+                <a href="{% pageurl page.hero_primary_cta_link %}" class="btn btn-primary">{{ page.hero_primary_cta_text }}</a>
+            {% endif %}
+            {% if page.hero_secondary_cta_link %}
+                <a href="{% pageurl page.hero_secondary_cta_link %}" class="btn btn-outline">{{ page.hero_secondary_cta_text }}</a>
+            {% endif %}
+          </div>
+
+          {# Loop through the hero_stats using the related_name we defined #}
+          {% if page.hero_stats.all %}
+            <div class="hero-stats">
+              {% for stat in page.hero_stats.all %}
+                <div class="stat-item">
+                  <span class="stat-number purecounter" data-purecounter-start="0" data-purecounter-end="{{ stat.stat_number }}" data-purecounter-duration="1"></span>
+                  <span class="stat-label">{{ stat.stat_label }}</span>
+                </div>
+              {% endfor %}
+            </div>
+          {% endif %}
+        </div>
+      </div>
+      <div class="col-lg-6" data-aos="fade-left" data-aos-delay="200">
+        <div class="hero-visual">
+          <div class="hero-image">
+            {% if page.hero_image %}
+              {% image page.hero_image fill-800x800 as hero_img %}
+              <img src="{{ hero_img.url }}" alt="{{ hero_img.alt }}" class="img-fluid">
+            {% else %}
+              <img src="{% static "assets/img/hero/hero.jpg" %}"  class="img-fluid">
+            {% endif %}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="hero-bg-elements">
+    <div class="bg-shape shape-1"></div>
+    <div class="bg-shape shape-2"></div>
+    <div class="bg-particles"></div>
+  </div>
+
+</section><!-- /Hero Section -->

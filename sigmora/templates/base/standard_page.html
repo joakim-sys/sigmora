@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+{% load wagtailcore_tags wagtailimages_tags %}
+
+{% block body_class %}standard-page-page{% endblock body_class %}
+
+{% block content %}
+
+<!-- Standard Page Section -->
+<section id="standard-section" class="standard-section section">
+
+    <!-- Section Title -->
+    <div class="container section-title" data-aos="fade-up">
+        <h2>{{ page.title }}</h2>
+        {% if page.subtitle %}
+            <p>{{ page.subtitle }}</p>
+        {% endif %}
+    </div><!-- End Section Title -->
+
+    <!-- Main Content Body -->
+    <div class="container" data-aos="fade-up">
+        {# This is where the StreamField content is rendered #}
+        {% for block in page.body %}
+            {# Wagtail's include_block tag finds the right way to render each block #}
+            {% include_block block %}
+        {% endfor %}
+    </div>
+
+</section><!-- /Standard Page Section -->
+
+{% endblock content %}

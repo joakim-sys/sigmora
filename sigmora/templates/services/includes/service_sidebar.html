@@ -1,0 +1,45 @@
+{% load wagtailcore_tags wagtailimages_tags %}
+
+<div class="col-lg-4">
+  <div class="sidebar" data-aos="fade-up" data-aos-delay="200">
+
+    {% if page.service_details.exists %}
+    <!-- Service Quick Facts -->
+    <div class="service-info">
+      <h4>Project Details</h4>
+      <ul class="service-facts">
+        {% for detail in page.service_details.all %}
+        <li>
+          <span class="fact-label">{{ detail.fact_label }}:</span>
+          <span class="fact-value">{{ detail.fact_value }}</span>
+        </li>
+        {% endfor %}
+      </ul>
+    </div>
+    {% endif %}
+
+    {% if page.testimonial %}
+    <!-- Testimonial -->
+    <div class="service-testimonial">
+      <div class="testimonial-content">
+        <p>"{{ page.testimonial.quote }}"</p>
+        <div class="testimonial-author">
+          {% if page.testimonial.author_image %}
+            {% image page.testimonial.author_image fill-80x80 as author_img %}
+            <img src="{{ author_img.url }}" alt="{{ author_img.alt }}" class="author-image">
+          {% endif %}
+          <div class="author-info">
+            <h5>{{ page.testimonial.author_name }}</h5>
+            {% if page.testimonial.author_title %}
+              <span>{{ page.testimonial.author_title }}</span>
+            {% endif %}
+          </div>
+        </div>
+      </div>
+    </div>
+    {% endif %}
+
+    <!-- Contact Form -->
+     {% include "services/includes/contact_form.html" %}
+  </div>
+</div>

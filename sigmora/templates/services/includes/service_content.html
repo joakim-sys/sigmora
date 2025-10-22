@@ -1,0 +1,15 @@
+{% load wagtailcore_tags %}
+
+{# This would be your main content column, e.g. <div class="col-lg-8"> #}
+<div class="service-content">
+  <h2>{{ page.title }}</h2>
+  
+  {% if page.introduction %}
+    <p class="lead">{{ page.introduction }}</p>
+  {% endif %}
+
+  {# Loop through and render each block from the StreamField #}
+  {% for block in page.body %}
+    {% include_block block %}
+  {% endfor %}
+</div>
