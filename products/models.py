@@ -60,7 +60,7 @@ class ProductImage(Orderable):
         blank=True,
     )
 
-    image_url = models.URLField(max_length=50, null=True, blank=True)
+    image_url = models.URLField(max_length=255, null=True, blank=True)
 
     panels = [FieldPanel("image"), FieldPanel("image_url")]
 
